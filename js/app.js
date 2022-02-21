@@ -2,7 +2,7 @@ const typingText = document.getElementById('typing-p');
 
 const inputField = document.getElementById('input-field');
 
-const miskateTag = document.getElementById('mistake');
+const mistakeTag = document.getElementById('mistake');
 
 const timeTag = document.getElementById('time');
 const wmpTag = document.getElementById('wmp');
@@ -39,10 +39,10 @@ function randomParagraph() {
 
 function initTyping() {
 
-    const charecters = typingText.getElementsByClassName('span');
-    let typedchar = inputField.value.split('')[charIndex];
+    const characters = typingText.getElementsByClassName('span');
+    let typedChar = inputField.value.split('')[charIndex];
 
-    if (charIndex < charecters.length - 1 && timeLeft > 0) {
+    if (charIndex < characters.length - 1 && timeLeft > 0) {
         if (isTyping == false) {
             timer = setInterval(initTimer, 1000);
             isTyping = true;
@@ -50,33 +50,33 @@ function initTyping() {
 
 
 
-        if (typedchar == null) {
+        if (typedChar == null) {
             charIndex--;
-            if (charecters[charIndex].classList.contains('incorrect')) {
+            if (characters[charIndex].classList.contains('incorrect')) {
                 mistake--;
             }
 
-            charecters[charIndex].classList.remove('correct', 'incorrect');
+            characters[charIndex].classList.remove('correct', 'incorrect');
         } else {
-            if (typedchar === charecters[charIndex].innerText) {
-                charecters[charIndex].classList.add('correct');
+            if (typedChar === characters[charIndex].innerText) {
+                characters[charIndex].classList.add('correct');
             } else {
                 mistake++;
-                charecters[charIndex].classList.add('incorrect');
+                characters[charIndex].classList.add('incorrect');
             }
             charIndex++;
         }
 
-        console.log(typedchar);
-        for (const span of charecters) {
+        console.log(typedChar);
+        for (const span of characters) {
             span.classList.remove('active');
         }
-        charecters[charIndex].classList.add('active');
+        characters[charIndex].classList.add('active');
         let wpm = Math.round(((charIndex - mistake) / 5) / (maxTime - timeLeft) * 60);
         wpm = wpm < 0 || !wpm || wpm === Infinity ? 0 : wpm;
 
         wmpTag.innerText = wpm;
-        miskateTag.innerText = mistake;
+        mistakeTag.innerText = mistake;
         cpmTag.innerText = charIndex - mistake;
     } else {
         clearInterval(timer);
@@ -105,7 +105,7 @@ function resetGame() {
     charIndex = mistake = isTyping = 0;
     timeTag.innerText = timeLeft;
     wmpTag.innerText = 0;
-    miskateTag.innerText = mistake;
+    mistakeTag.innerText = mistake;
     cpmTag.innerText = 0;
 }
 
